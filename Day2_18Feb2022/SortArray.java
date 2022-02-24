@@ -1,6 +1,6 @@
 //Sort integer array
 import java.util.Arrays;
-public class MyClass {
+public class SortArray {
     private static int[] sort_intarr(int[] numarr){
         Arrays.sort(numarr);
         return numarr;

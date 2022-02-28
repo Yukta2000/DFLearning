@@ -1,0 +1,19 @@
+1) In Java when we perform 1/0 we get divide by zero error while when we perform 1.0/0.0 it gives infinity
+Answer This is a hardware limitation, not a software one, and the reason is simple: IEEE754 floating point arithmetic explicitly supports +Inf and -Inf, i.e. 
+there are bit representations that correspond to those two ideas, and therefore it makes sense for them to be the result of 1.0/0.0.
+
+Integer arithmetic as implemented in common processors does not have an internal representation for infinities, and therefore has to throw an error.
+
+You could implement an integral type that supports infinities in software, but it would be slower as a division operation would not correspond directly to the processor 's div
+instruction. This is not sensible in my opinion: Integer div-by-zero errors are almost always due to (a) incorrect implementation of your algorithm or (b) failure to validate 
+user input correctly, both of which are fundamental problems that have to be tackled before you compile your code, not at runtime via exceptions! In FP arithmetic on the other 
+hand, you may easily run into div-by-zero when you don't (and really cannot) expect it: 1e-308/1e+308 has a correct value, but it is not representable as a double even though 
+both operands are.
+
+In case of double/float division, the output is Infinity, the basic reason behind that it implements the floating point arithmetic algorithm which specifies a special values 
+like “Not a number” OR “infinity” for “divided by zero cases” as per IEEE 754 standards.
+In case of integer division, it throws ArithmeticException.
+
+https://www.baeldung.com/java-division-by-zero
+
+

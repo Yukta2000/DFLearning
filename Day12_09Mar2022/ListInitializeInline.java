@@ -17,3 +17,5 @@ public class ListInitializeInline
 		System.out.println(listStr);
 	}
 }
+
+//https://www.geeksforgeeks.org/initializing-a-list-in-java/

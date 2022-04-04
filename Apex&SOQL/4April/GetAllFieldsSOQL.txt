@@ -1,0 +1,20 @@
+How to fetch all fields from object in SOQL ?
+ FIELDS(ALL)—to select all the fields of an object.
+ FIELDS(CUSTOM)—to select all the custom fields of an object.
+ FIELDS(STANDARD)—to select all the standard fields of an object.
+=========================================================
+The SOQL FIELDS function must have a LIMIT of at most 200||
+=========================================================
+Query to get Custom fields on Account Object
+  SELECT FIELDS(CUSTOM) FROM Account LIMIT 20
+
+Query to get Custom fields and Standard fields Name, Amount , IsWon from Opportunity
+  SELECT Name, Amount, IsWon, FIELDS(CUSTOM) FROM Opportunity LIMIT 20
+
+Query to get All fields from Contact
+  SELECT FIELDS(ALL) FROM Contact LIMIT 20
+
+Query to get standard fields from Lead
+  SELECT FIELDS(STANDARD) FROM Lead LIMIT 20
+
+

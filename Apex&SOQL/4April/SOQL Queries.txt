@@ -1,0 +1,116 @@
+Create Account 
+  
+Using insert
+================
+try{
+  Account acc = new Account();
+  acc.Name = 'New Jersey Milk';
+  insert acc;  
+}
+catch(Exception e){
+    System.debug('Error:'+ e);
+}
+=====================
+Using Database 
+=====================
+Account acc1 = new Account(Name='Acc1');
+Account acc2 = new Account(Name='Acc2');
+List<Account> accounts = new List<Account>();
+accounts.add(acc1);
+accounts.add(acc2);
+Database.SaveResult[] queryResult = Database.insert(accounts);
+for(Database.SaveResult sr:queryResult){
+    if(sr.isSuccess()){
+        system.debug('Succesfully inserted');
+    }
+    else{
+        system.debug('Error:'+sr.getErrors());
+    }
+}
+
+
+================================================================
+Create Contact and provide AccountId from newly created Account
+================================================================
+Account acc1 = new Account(Name='New Acc1');
+Account acc2 = new Account(Name='New Acc2');
+List<Account> accounts = new List<Account>();
+accounts.add(acc1);
+accounts.add(acc2);
+Database.SaveResult[] queryResult = Database.insert(accounts);
+List<Id> newAccountIds = new List<Id>();
+for(Database.SaveResult sr:queryResult){
+    if(sr.isSuccess()){
+        system.debug('Account Succesfully inserted');
+        newAccountIds.add(sr.getId());
+    }
+    else{
+        system.debug('Error:'+sr.getErrors());
+    }
+}
+    
+    try{
+        List<Contact> newContacts = new List<Contact>();
+        for(Id accountId:newAccountIds){
+            newContacts.add(new Contact(LastName='Primary',AccountId=accountId));
+        } 
+        insert newContacts;
+        system.debug(newContacts);
+    }   
+    catch(Exception e){
+        system.debug('Error:'+e);
+    }
+====================================================================
+Update Account 
+====================
+try{
+   Account acc = [SELECT Id,Name FROM Account WHERE Name = 'New Acc1' LIMIT 1];
+   acc.Name='Updated '+acc.Name;
+   update acc;
+   system.debug(acc);
+}
+catch(Exception e){
+    system.debug('Error:'+e);
+}
+=============================================================
+Delete Account,Contact and try fetching the deleted records
+=============================================================
+try{
+   List<Account> accounts = [SELECT Id,Name FROM Account WHERE Name LIKE '%New Acc_'];
+   system.debug(accounts);
+   delete(accounts);   
+}
+catch(Exception e){
+    system.debug('Error:'+e);
+}
+
+---------------------------
+Undelete
+---------------------------
+try{
+   List<Account> accounts = [SELECT Id,Name FROM Account WHERE Name LIKE '%New Acc_' ALL ROWS];
+   system.debug(accounts);
+   undelete accounts;   
+}
+catch(DmlException e){
+    system.debug('Error:'+e);
+}
+
+===========================================================================
+Deleting using Database class
+===================================
+String query = 'SELECT Id,Name FROM Account WHERE Name LIKE \'%New Acc_\'';
+List<SObject> accounts = new List<SObject>();
+for(SObject account:Database.query(query)){
+        accounts.add(account);   
+}
+
+Database.DeleteResult[] deleteResult =  Database.delete(accounts);
+for(Database.DeleteResult dr:deleteResult){
+    if(dr.isSuccess()){
+        system.debug('Successfully deleted:'+dr.getId());
+    }
+    else{
+        system.debug(dr.getErrors());
+    }
+}

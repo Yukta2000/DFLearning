@@ -1,0 +1,6 @@
+trigger ContactTrigger on Contact (after update) {
+    if(Trigger.isUpdate && ContactTriggerHelper.isRunning){
+       ContactTriggerHelper.setLastUpdatedOn(Trigger.newMap.keySet()); 
+              system.debug(ContactTriggerHelper.isRunning);
+    }
+}

@@ -1,0 +1,12 @@
+Create Start Date and End Date on Opportunity, apply validation rules based on close date.
+Create custom object Opportunity Extension with (date, amount) custom fields.
+Write a trigger to build slots for Opportunity Extension
+=======================================================================
+Validation Rule for Close Date
+----------------------------
+AND(
+CloseDate__c < StartDate__c , CloseDate__c < TODAY()
+)
+
+=======================================================================
+custom object OpportunityExtension(Master-Detail with Opportunity)

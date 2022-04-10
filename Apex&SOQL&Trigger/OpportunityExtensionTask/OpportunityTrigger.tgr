@@ -1,0 +1,5 @@
+trigger OpportunityTrigger on Opportunity (after insert,before update) {
+    
+        OpportunityTriggerHelper.addSlotRecords(Trigger.oldMap,Trigger.newMap);
+    
+}

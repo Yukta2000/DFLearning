@@ -1,0 +1,5 @@
+Create custom object Contact Audit
+Create Master-Detail relation between contact and Contact Audit
+Create custom field modeified by and changed fields of type text(255)
+
+On contact create a field set to put fields we want to track on contact 

@@ -13,6 +13,7 @@ public class ContactTriggerHelper {
             if(oldMap!=null){
                 for(String fieldName:fieldNames){
                    Object oldValue = oldMap.get(recordId)?.get(fieldName);
+              //We check first oldvalue, if null than we give true and new value added,if not null compare old and new values and if not same then only add new value 
                    if(oldValue!=null?(!oldValue.equals(newMap.get(recordId).get(fieldName))):true){
                         updatedFields.put(fieldName,newMap.get(recordId).get(fieldName));
                    } 

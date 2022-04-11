@@ -4,7 +4,7 @@ Write a trigger to build slots for Opportunity Extension
 =======================================================================
 Validation Rule for Close Date
 ----------------------------
-AND(
+OR(
 CloseDate__c < StartDate__c , CloseDate__c < TODAY()
 )
 

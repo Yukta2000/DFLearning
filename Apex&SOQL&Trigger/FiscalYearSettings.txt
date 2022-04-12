@@ -1,0 +1,5 @@
+Get month of  fiscal year from fiscal settings
+SELECT CALENDAR_MONTH(StartDate), Name FROM FiscalYearSettings GROUP BY StartDate,Name
+
+
+SELECT CALENDAR_MONTH(StartDate), Name FROM FiscalYearSettings WHERE Name='2022' GROUP BY StartDate,Name

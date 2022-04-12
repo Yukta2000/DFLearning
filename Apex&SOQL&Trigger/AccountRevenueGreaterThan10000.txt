@@ -1,0 +1,13 @@
+Using SOQL
+SELECT Id, Name, Revenue__c FROM Account WHERE Revenue__c > 10000
+================================
+Using loop
+================================
+List<Account> allAccounts = [SELECT Id, Name, Revenue__c FROM Account];
+List<Account> filteredAccounts = new List<Account>();
+for(Account currentAccount:allAccounts){
+    if(currentAccount.Revenue__c > 10000){
+        filteredAccounts.add(currentAccount);
+    }
+}
+system.debug('Accounts with Revenue greater than 10000:\n'+filteredAccounts);

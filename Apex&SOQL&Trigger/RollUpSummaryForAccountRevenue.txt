@@ -1,0 +1,7 @@
+Create custom field of rollup summary on Account
+summarized object = opportunities
+
+Roll-Up Type
+SUM - field : Amount
+
+All records used for calculation

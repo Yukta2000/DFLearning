@@ -1,0 +1,39 @@
+List All Accounts where opportunities have stage= prospecting
+
+Using soql
+----------------
+SELECT  Account.Name, COUNT(Name) OppCount FROM Opportunity WHERE StageName='Prospecting'  GROUP BY Account.Name
+--------------------------------------------------------
+List<Opportunity> allOpportunities = [SELECT Account.Name,StageName FROM Opportunity];
+Set<String> accountsWithProspecting = new Set<String>();
+for(Opportunity currentOpp:allOpportunities){
+    if(currentOpp.StageName.equals('Prospecting')){
+        accountsWithProspecting.add(currentOpp.Account.Name);
+    } 
+        
+}
+system.debug(accountsWithProspecting);
+
+=====================================================================================================
+Get different stages on different accounts
+//SELECT Name, (SELECT StageName FROM Opportunities) FROM Account
+
+SELECT  Account.Name, StageName FROM Opportunity GROUP BY StageName,Account.Name ORDER BY Account.Name
+
+--------------------------------------------------------
+List<Opportunity> allOpportunities = [SELECT Account.Name,StageName FROM Opportunity];
+Map<String,Set<String>> accountStages = new Map<String,Set<String>>();
+for(Opportunity currentOpp:allOpportunities){
+    if(accountStages.containsKey(currentOpp.Account.Name)){
+       Set<String> currentStages = accountStages.get(currentOpp.Account.Name);
+        currentStages.add(currentOpp.StageName);
+        accountStages.put(currentOpp.Account.Name,currentStages);
+    }
+    else{
+        Set<String> stages = new Set<String>();
+        stages.add(currentOpp.StageName);
+        accountStages.put(currentOpp.Account.Name,stages);
+    }
+        
+}
+system.debug(accountStages);

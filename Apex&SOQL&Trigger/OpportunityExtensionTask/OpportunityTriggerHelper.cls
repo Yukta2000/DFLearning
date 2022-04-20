@@ -36,18 +36,35 @@ public class OpportunityTriggerHelper {
             if(oldMap == null){
                 for(Id recordId:newMap.keySet()){
                     Opportunity currentOpportunity = newMap.get(recordId);
-                    allSlots.addAll(createSlots(currentOpportunity.Id,currentOpportunity.Name,currentOpportunity.StartDate__c,currentOpportunity.CloseDate__c,currentOpportunity.Amount));
-                
+                    if(currentOpportunity.StartDate__c!=null && currentOpportunity.CloseDate__c!=null){
+                     	allSlots.addAll(createSlots(currentOpportunity.Id,currentOpportunity.Name,currentOpportunity.StartDate__c,currentOpportunity.CloseDate__c,currentOpportunity.Amount));
+                    }
                 }
             }
             else{
                 for(Id recordId:newMap.keySet()){
-                    if(oldMap.get(recordId)?.StartDate__c?.isSameDay(newMap.get(recordId).StartDate__c) || oldMap.get(recordId)?.CloseDate__c?.isSameDay(newMap.get(recordId).CloseDate__c) ){
-                        String oppName = oldMap.get(recordId).Name+':%';
-                        List<OpportunityExtension__c> oldSlots = [SELECT Id,Name FROM OpportunityExtension__c WHERE Name LIKE :oppName];
-                        delete oldSlots;
-                        Opportunity currentOpportunity = newMap.get(recordId);
-                       allSlots.addAll(createSlots(currentOpportunity.Id,currentOpportunity.Name,currentOpportunity.StartDate__c,currentOpportunity.CloseDate__c,currentOpportunity.Amount));
+                    Opportunity oldRecord = oldMap.get(recordId);
+                    Opportunity newRecord = newMap.get(recordId);
+                    Date oldStartDate = oldRecord.StartDate__c;
+                    Date oldCloseDate = oldRecord.CloseDate__c;
+                    Decimal oldAmount = oldRecord.Amount;
+                    Date newStartDate = newRecord.StartDate__c;
+                    Date newCloseDate = newRecord.CloseDate__c;
+                    Decimal newAmount = newRecord.Amount;
+                    
+                    if(oldStartDate!=null && oldCloseDate!=null  && oldAmount!=null){
+                    	if(oldStartDate.isSameDay(newStartDate) && newCloseDate!=null || oldCloseDate.isSameDay(newCloseDate) && newStartDate!=null ||newAmount!=null && oldAmount!=newAmount && newStartDate!=null && newCloseDate!=null ){
+                        	String oppName = oldRecord.Name+':%';
+                        	List<OpportunityExtension__c> oldSlots = [SELECT Id,Name FROM OpportunityExtension__c WHERE Name LIKE :oppName];
+                        	delete oldSlots;
+                        	Opportunity currentOpportunity = newRecord;
+                       	allSlots.addAll(createSlots(currentOpportunity.Id,currentOpportunity.Name,currentOpportunity.StartDate__c,currentOpportunity.CloseDate__c,currentOpportunity.Amount));
+                    	}
+                    }
+                    else if(newStartDate!=null && newCloseDate!=null){
+                        Opportunity currentOpportunity = newRecord;
+                        allSlots.addAll(createSlots(currentOpportunity.Id,currentOpportunity.Name,currentOpportunity.StartDate__c,currentOpportunity.CloseDate__c,currentOpportunity.Amount));
+                    
                     }
                 }
             }

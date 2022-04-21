@@ -1,0 +1,25 @@
+Merge Two arrays and store in third array
+------------------------------------------
+let arr1=[1,2,3]; 
+let arr2=[4,5,6]; 
+let arr3=arr1.concat(arr2); 
+console.log(arr3);
+
+======================================
+Remove duplicates from Array
+-----------------------------------
+let arr = ["Hello", "Hi","How","You","Hi","Hello"]; 
+let uniqueArr=[...new Set(arr)]; 
+console.log(uniqueArr);
+
+=============================================
+Number of occurrences of a word in a string
+-----------------------------------------------
+let str = 'Hi Hello Hi hi hello Hello Bye bye bye'; 
+let word = "Hello";
+let exp = new RegExp(word,'g'); 
+// The g in the regular expression (short for global) says to search the whole string rather than just find the first occurrence
+const count = str.match(exp).length;
+ console.log(count);
+
+============================================

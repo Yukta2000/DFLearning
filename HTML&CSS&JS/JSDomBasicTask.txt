@@ -1,0 +1,19 @@
+Use querySelector to iterate over child elements
+----------------------------------------------------------------------
+document.querySelector('header').childNodes.forEach((ele)=> 
+{
+console.log(ele); 
+if(ele.hasChildNodes)
+{
+ele.childNodes.forEach((elech)=>
+{
+console.log(elech);
+});
+}
+} );
+
+
+header=document.querySelector('header');
+header.style.backgroundColor="blue";
+
+

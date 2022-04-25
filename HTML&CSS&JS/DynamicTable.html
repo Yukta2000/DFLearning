@@ -5,7 +5,7 @@
 </head>
 
 <body>
-    <table></table>
+    <table onclick="handleClick(event)"></table>
 </body>
 <script>
     let table = document.querySelector("table");
@@ -15,6 +15,10 @@
         column.textContent = num;
         row.appendChild(column);
         table.appendChild(row);
+    }
+
+    function handleClick(event) {
+        console.log(event.target.textContent);
     }
 </script>
 

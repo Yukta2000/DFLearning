@@ -41,6 +41,7 @@ function addTask() {
     console.log(form.elements.taskName.value);
     let task = { TaskId: "Task" + id, TaskName: form.elements.taskName.value };
     tasks.push(task);
+    document.querySelector("#taskName").value = "";
     hideForm();
     renderTasks();
 }

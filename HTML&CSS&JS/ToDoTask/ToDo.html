@@ -9,14 +9,19 @@
 
 <body onload="init()">
     <div class="main-container">
-        <button id="addTask" onclick="showForm()">Add Task</button>
-        <div class="main-container_all-tasks" onclick="handleClick(event)"></div>
-        <div class="main-container_task-form hide">
-            <form name="task" method="post" onsubmit="return false">
-                <label for="taskName">Task Name</label>
-                <input type="text" id="taskName" name="taskName" />
-                <button type="submit" onclick="addTask()">Add</button>
-            </form>
+        <img src="add-task.png" id="addTask" onclick="showForm()" />
+
+        <div class="main-container_content">
+            <div class="main-container_all-tasks" onclick="handleClick(event)">
+                <label>To Do Tasks</label>
+            </div>
+            <div class="main-container_task-form hide-form">
+                <form name="task" method="post" onsubmit="return false">
+                    <label for="taskName">Task Name</label>
+                    <input type="text" id="taskName" name="taskName" />
+                    <button type="submit" onclick="addTask()">Add</button>
+                </form>
+            </div>
         </div>
     </div>
 </body>

@@ -4,14 +4,14 @@ tasks.push({ TaskId: "Task0", TaskName: "Add new tasks" });
 
 function showForm() {
     let form = document.querySelector(".main-container_task-form");
-    form.classList.remove("hide");
-    form.classList.add("show");
+    form.classList.remove("hide-form");
+    form.classList.add("show-form");
 }
 
 function hideForm() {
     let form = document.querySelector(".main-container_task-form");
-    form.classList.remove("show");
-    form.classList.add("hide");
+    form.classList.remove("show-form");
+    form.classList.add("hide-form");
 }
 
 function handleClick(event) {
@@ -48,7 +48,7 @@ function addTask() {
 function renderTasks() {
     for (let currTask of tasks) {
         if (document.querySelector("." + currTask.TaskId) == null) {
-            let tasksDIV = document.querySelector(".main-container_all-tasks");
+            let tasksDiv = document.querySelector(".main-container_all-tasks");
             let checkbox = `<input type="checkbox" id= ${currTask.TaskId} />`;
             let label = document.createElement("label");
             label.setAttribute("for", "Task" + currTask.TaskId);
@@ -64,7 +64,8 @@ function renderTasks() {
             task.append(label);
             task.append(delLink);
             task.classList.add(currTask.TaskId);
-            tasksDIV.append(task);
+            task.classList.add("task-container");
+            tasksDiv.append(task);
             id++;
             console.log("Added tasks");
         }
